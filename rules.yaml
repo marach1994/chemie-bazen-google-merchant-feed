@@ -1,0 +1,133 @@
+# =============================================================================
+# Google Nákupy [CZ] — konfigurace transformací
+# Náhrada za Mergado projekt ID 224446 (Chemie-Bazen.cz)
+#
+# Pořadí operací v transform.py odpovídá prioritám pravidel v Mergadu (1 → 9).
+# Množiny níže se porovnávají proti hodnotě <g:id> produktu.
+# =============================================================================
+
+feed_url: "https://www.chemie-bazen.cz/google/export/products.xml"
+
+# Priorita 1 — přejmenovat <description> na <g:description> (výstup Mergada
+# používá g:description). Obsah zůstává stejný, původní <description> se odstraní.
+description_to_g: true
+
+# Priorita 9 — odstranit tuto úvodní frázi z g:description.
+# Pozn.: má mezeru na konci; v praxi po "recenze" bývá nový řádek, takže se
+# shoda skoro nikdy netrefí — přesně jako ve výstupu Mergada. Ponecháno pro věrnost.
+description_strip: "Názor bazénového specialisty - recenze "
+
+# Priorita 2 — "Zamítnuté produkty": vymazat g:gtin i g:brand
+rejected_clear_gtin_brand:
+  - "9991461"
+  - "99996241"
+  - "911320500"
+  - "99996223"
+  - "10852030"
+  - "00000054"
+  - "CODE-517"
+  - "99996208"
+  - "CODE-558"
+  - "99996224"
+
+# Priorita 3 + 4 — "ID: GTIN → MPN": zkopírovat g:gtin do g:mpn, poté g:gtin vymazat
+gtin_to_mpn:
+  - "10962005"
+  - "CODE-558"
+  - "10852030"
+  - "CODE-517"
+  - "CODE-566"
+  - "CODE-466"
+  - "CODE-56"
+  - "CODE-54"
+  - "CODE-27"
+  - "CODE-25"
+  - "00000054"
+  - "99996224"
+  - "99996208"
+  - "99996223"
+  - "911320500"
+
+# Priorita 5 + 6 — "Hadice": nastavit g:identifier_exists = TRUE a zkopírovat g:id → g:mpn
+# (aktuálně tyto ID ve feedu nejsou, takže 0 shod — ponecháno pro věrnost)
+hadice_id_to_mpn:
+  - "CODE-185-742"
+  - "CODE-185-741"
+  - "CODE-185-740"
+  - "CODE-185-739"
+  - "CODE-185-738"
+  - "CODE-185-737"
+  - "CODE-185-736"
+  - "CODE-185-735"
+  - "CODE-185-734"
+  - "CODE-185-733"
+  - "CODE-185-732"
+  - "CODE-185-731"
+  - "CODE-185-730"
+  - "CODE-185-729"
+  - "CODE-185-728"
+  - "CODE-185-727"
+  - "CODE-185-726"
+  - "CODE-185-725"
+  - "CODE-185-724"
+  - "CODE-185-723"
+  - "CODE-185-722"
+  - "CODE-185-721"
+  - "CODE-185-720"
+  - "CODE-185-719"
+  - "CODE-185-718"
+  - "CODE-185-717"
+  - "CODE-185-716"
+  - "CODE-185-715"
+  - "CODE-185-714"
+  - "11001002"
+  - "CODE-288-832"
+  - "CODE-288-831"
+  - "CODE-288-830"
+  - "CODE-288-829"
+  - "CODE-288-828"
+  - "CODE-288-827"
+  - "CODE-288-826"
+  - "CODE-288-825"
+  - "CODE-288-824"
+  - "CODE-288-823"
+  - "CODE-288-822"
+  - "CODE-288-821"
+  - "CODE-288-820"
+  - "CODE-288-819"
+  - "CODE-288-818"
+  - "CODE-288-817"
+  - "CODE-288-816"
+  - "CODE-288-815"
+  - "CODE-288-814"
+  - "CODE-288-813"
+  - "CODE-288-812"
+  - "CODE-288-811"
+  - "CODE-288-810"
+  - "CODE-288-809"
+  - "CODE-288-808"
+  - "CODE-288-807"
+  - "CODE-288-806"
+  - "CODE-288-805"
+  - "CODE-288-804"
+  - "11001001"
+
+# Priorita 7 + 8 — "Nesprávná hodnota (ID existuje)":
+# nastavit g:identifier_exists = FALSE a vymazat g:brand
+wrong_identifier:
+  - "53333"
+  - "00000063"
+  - "0410600500"
+  - "00000047"
+  - "002222"
+  - "00000061"
+  - "100920"
+  - "CODE-511"
+  - "00000055"
+  - "00000059"
+  - "00000048"
+  - "0410601000"
+  - "751012"
+  - "98009242"
+  - "101400"
+  - "98009898"
